@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: import.meta.env.VITE_API_URL
 });
 
 API.interceptors.request.use((req) => {
@@ -17,14 +17,12 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// Handle 401 errors globally
 API.interceptors.response.use(
   (res) => res,
   (err) => {
     if (err.response?.status === 401) {
       console.error("❌ 401 Unauthorized - Token invalid or expired");
       localStorage.removeItem("token");
-      // Let individual components handle redirects
     }
     return Promise.reject(err);
   }
