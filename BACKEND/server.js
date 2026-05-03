@@ -14,7 +14,7 @@ app.use(cors({
   credentials: true
 }));
 
-app.options("*", cors()); // 🔥 important
+app.options("/*", cors()); // ✅ FIXED
 
 app.use(express.json());
 
